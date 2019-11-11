@@ -43,7 +43,22 @@ pip install -U pip && pip3 install -U pip
 #sudo -H pip install --upgrade awscli
 #sudo -H pip install --upgrade boto
 
- pip install --upgrade --user boto3
+echo "*** Install python3 ***"
+apt-get update \
+   && apt-get install -y python3-pip python3-dev \
+   && cd /usr/local/bin \
+   && ln -s /usr/bin/python3 python \
+   && pip3 install --upgrade pip
+
+echo "*** Install Python Modules ***"
+pip3 install pymongo
+pip3 install boto3
+pip3 install botocore
+pip3 install uuid
+pip3 install --upgrade --user boto3
+
+
+mkdir /db_backups/
 #echo "*** Checking AWS CLI installation ***"
 #aws --version
 
@@ -55,7 +70,7 @@ T_RETVAL=${PIPESTATUS[0]}
 && wget -q https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
 && unzip -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin \
 && rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-
+terraform version >> README.md
 
 # packer
 P_VERSION=$(/usr/local/bin/packer -v)
