@@ -404,9 +404,15 @@ echo "*** Bootstrap and start Consul Cluster ***"
 #https://computingforgeeks.com/install-and-configure-vault-server-linux/
 #https://computingforgeeks.com/how-to-install-consul-cluster-18-04-lts/
 
+echo "*** restoring failed kops cluster ***"
+#https://hindenes.com/2019-08-09-Kops-Restore/
 
-
-
+#NOTE if using a different etcd-manager version, adjust the download link accordingly. It should matche the version of the /etcd-manager in the same container
+apt-get update && apt-get install -y wget
+wget https://github.com/kopeio/etcd-manager/releases/download/3.0.20190801/etcd-manager-ctl-linux-amd64
+mv etcd-manager-ctl-linux-amd64 etcd-manager-ctl
+chmod +x etcd-manager-ctl
+mv etcd-manager-ctl /usr/local/bin/
 
 echo "*** Cleaning up APT caches ***"
 apt-get -y -qq autoremove -o=Dpkg::Use-Pty=0
@@ -427,6 +433,8 @@ sudo apt-get install ntp
 echo "ip_adress" >> /etc/ntp
 sed -i 's/pool /#pool /g' /etc/ntp.conf
 sudo systemctl restart ntp.service
+sudo service ntp start
+sudo service ntp service
 
 echo "*** Cleaning /tmp ***"
 rm -rf /tmp/*
