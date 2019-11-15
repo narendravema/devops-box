@@ -308,7 +308,6 @@ sudo -H apt-get -y -qq install -o=Dpkg::Use-Pty=0 httpie
 wget --quiet --no-check-certificate https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -O /usr/bin/jq
 chmod a+x /usr/bin/jq
 
-
 echo "*** Installing GO ***"
 
 
@@ -546,13 +545,5 @@ sudo apt install thunderbird
 
 sudo apt install openssh-server
 
-
 #basic PHP & MySQL CLI
 sudo apt install php-cli php-mbstring php-mysql mysql-client
-
-
-
-#echo "*** Optimizing box disk space ***"
-#dd if=/dev/zero of=/EMPTY bs=1M || true
-#rm -f /EMPTY
-
